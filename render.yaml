@@ -1,0 +1,33 @@
+services:
+  # Backend Service
+  - type: web
+    name: gaze-backend
+    env: docker
+    rootDir: backend
+    plan: free # or your preferred plan
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+    disk:
+      name: workspaces
+      mountPath: /app/workspaces
+      sizeGB: 1
+
+  # Frontend Service
+  - type: web
+    name: gaze-frontend
+    env: docker
+    rootDir: frontend
+    plan: free
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: gaze-backend
+          type: web
+          property: host
+    # Map the backend host to the full URL for VITE_API_URL
+    # Note: Render provides the host, but we need to prepend http/https
+    # Since Render uses HTTPS for external, but services talk via internal host
+    # For simplicity in VITE (client-side), we use the public URL.
