@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gaze-darker;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gaze-panel rounded;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gaze-muted;
+}
